@@ -1,120 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/view/view_aluno.dart';
+import 'package:flutter_app/view/ViewCurso.dart';
+import 'package:flutter_app/view/ViewAluno.dart';
+import 'package:flutter_app/view/ViewDisciplina.dart';
 
-void main() => runApp(
-      MaterialApp(title: "Título", home: MyApp()),
-    );
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+void main() {
+  runApp(new MyApp());
 }
-
-class _MyAppState extends State<MyApp> {
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  TextEditingController codigoDisciplinaController = TextEditingController();
-  TextEditingController nomeDisciplinaController = TextEditingController();
-  TextEditingController creditosDiscController = TextEditingController();
+class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text("Magister App"),
-              centerTitle: true,
-              backgroundColor: Colors.blue[900],
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {},
-                )
-              ],
-              bottom: TabBar(tabs: [
-                Tab(icon: Icon(Icons.announcement)),
-                Tab(icon: Icon(Icons.cake)),
-                Tab(icon: Icon(Icons.cloud))
-              ]),
-            ),
-            body: TabBarView(children: [
-              SingleChildScrollView(
-                  padding: EdgeInsets.all(10.0),
-                  child: Form(
-                      key: _formKey,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    labelText: "Código",
-                                    labelStyle: TextStyle(
-                                        color: Colors.blue, fontSize: 20.0)),
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 20.0),
-                                controller: codigoDisciplinaController,
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "Insira a quantidade de créditos!";
-                                  } else if (int.parse(value) < 0) {
-                                    return "Valor inválido!";
-                                  }
-                                  return null;
-                                }),
-                            TextFormField(
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                    labelText: "Disciplina",
-                                    labelStyle: TextStyle(
-                                        color: Colors.blue, fontSize: 20.0)),
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 20.0),
-                                controller: nomeDisciplinaController,
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "Insira o nome da disciplina!";
-                                  }
-                                  return null;
-                                }),
-                            TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    labelText: "Créditos",
-                                    labelStyle: TextStyle(
-                                        color: Colors.blue, fontSize: 20.0)),
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 20.0),
-                                controller: creditosDiscController,
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "Insira a quantidade de créditos!";
-                                  }
-                                  return null;
-                                }),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 20.0),
-                              child: RaisedButton(
-                                color: Colors.blue,
-                                onPressed: () {
-                                  if (_formKey.currentState.validate()){
-                                    // salvar dados.
-                                  }
-                                },
-                                child: Text(
-                                  'Salvar',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            )
-                          ]))),
-              Center(child: AlunnoView()),
-              Center(child: Text("Professor 1234"))
-            ])));
+    return new MaterialApp(
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
+        canvasColor: const Color(0xFFfafafa),
+      ),
+      home: new MyHomePage(),
+    );
   }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key}) : super(key: key);
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Magister Mobile'),
+      ),
+      body: PageView(children: [
+      SingleChildScrollView(
+    padding: EdgeInsets.all(10.0),
+    child: Form(
+        key: _formKey,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 20.0),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: cursoPressed,
+                  child: Text(
+                    'Curso',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 20.0),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: disciplinaPressed,
+                  child: Text(
+                    'Displina',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 20.0),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: alunoPressed,
+                  child: Text(
+                    'Aluno',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              )
+            ]
+        )
+    )
+    )
+    ]),
+
+    );
+  }
+  void cursoPressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ViewCurso()),
+    );
+  }
+  void alunoPressed(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ViewAluno()),
+    );
+  }
+  void disciplinaPressed(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ViewDisciplina()),
+    );
+  }
+
 }
